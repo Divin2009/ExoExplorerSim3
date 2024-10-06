@@ -14,7 +14,7 @@ def is_in_habitable_zone(star_type, distance):
     }
    
     if star_type not in habitable_zones:
-        return None, "Invalid star type. Please enter 'G', 'K', or 'M'."
+        return None, "Invalid star type. Please enter 'O', 'B', 'A', 'F', 'G', 'K', or 'M'"
     min_distance, max_distance = habitable_zones[star_type]
     if min_distance <= distance <= max_distance:
         return True, "The exoplanet is in the habitable zone."
