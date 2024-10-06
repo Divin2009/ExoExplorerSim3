@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exoplanet Habitable Zone Checker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Orbitron', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+        }
+        
+        .space-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            z-index: -2;
+        }
+        
+        .stars, .twinkling, .clouds {
+            position: absolute;
+            display: block;
+            top: 0; bottom: 0;
+            left: 0; right: 0;
+            width: 100%; height: 100%;
+        }
+
+        .stars {
+            z-index: -1;
+            background: #000 url('https://i.imgur.com/YKY28eT.png') repeat top center;
+        }
+
+        .twinkling {
+            z-index: 0;
+            background: transparent url('https://i.imgur.com/XYMF4ca.png') repeat top center;
+            animation: move-twink-back 200s linear infinite;
+        }
+
+        .clouds {
+            z-index: 1;
+            background: transparent url('https://i.imgur.com/mHbScrQ.png') repeat top center;
+            animation: move-clouds-back 200s linear infinite;
+        }
+
+        @keyframes move-twink-back {
+            from {background-position: 0 0;}
+            to {background-position: -10000px 5000px;}
+        }
+
+        @keyframes move-clouds-back {
+            from {background-position: 0 0;}
+            to {background-position: 10000px 0;}
+        }
+        
+        .container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            opacity: 0;
+            animation: fadeIn 2s ease-out forwards;
+        }
+        
+        h1 {
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
+        }
+        
+        form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+            max-width: 400px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 1em;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        select option {
+            background-color: #000;
+            color: #00ffff;
+        }
+        
+        select:hover, input:hover {
+            outline: none;
+            box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+            transform: scale(1.05);
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            box-shadow: 0 0 10px #00ffff;
+        }
+        
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #00ffff, #0066ff);
+            border: none;
+            color: #fff;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+        
+        button::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: rgba(255,255,255,0.2);
+            transform: rotate(45deg);
+            transition: all 0.3s ease;
+        }
+        
+        button:hover::after {
+            left: 100%;
+            top: 100%;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="space-background"></div>
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    <div class="clouds"></div>
+    <div class="container">
+        <h1>Exoplanet Habitable Zone Checker</h1>
+        <form action="{{ url_for('check_habitable_zone') }}" method="post">
+            <select name="star_type" required>
+                <option value="" disabled selected>Select star type</option>
+                <option value="G">G-type</option>
+                <option value="K">K-type</option>
+                <option value="M">M-type</option>
+            </select>
+            <input type="number" name="distance" step="0.01" required placeholder="Distance from star (AU)">
+            <button type="submit">Check Habitable Zone</button>
+        </form>
+    </div>
+</body>
+</html>
