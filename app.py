@@ -4,6 +4,10 @@ app = Flask(__name__, static_url_path='/static')
 
 def is_in_habitable_zone(star_type, distance):
     habitable_zones = {
+        'O': (5, 10),
+        'B': (2, 5),
+        'A': (1.5, 3),
+        'F': (1, 1.7),
         'G': (0.95, 1.37),  # G-type stars
         'K': (0.85, 1.50),  # K-type stars
         'M': (0.30, 0.80)   # M-type stars
