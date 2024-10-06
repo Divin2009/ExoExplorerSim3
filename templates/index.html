@@ -170,6 +170,10 @@
         <form action="{{ url_for('check_habitable_zone') }}" method="post">
             <select name="star_type" required>
                 <option value="" disabled selected>Select star type</option>
+                <option value="O">O-type</option>
+                <option value="B">B-type</option>
+                <option value="A">A-type</option>
+                <option value="F">F-type</option>
                 <option value="G">G-type</option>
                 <option value="K">K-type</option>
                 <option value="M">M-type</option>
